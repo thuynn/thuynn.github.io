@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TokenExplorer from '../components/lab/TokenExplorer';
+import ContrastChecker from '../components/lab/ContrastChecker';
+---
+
+<BaseLayout title="Lab" description="Small interactive experiments: design tokens, accessibility tools and UI components.">
+  <section class="container-page pt-16 pb-10">
+    <p class="eyebrow">Lab</p>
+    <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Experiments in code</h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted">
+      Small tools I build to think through design problems. Each one is a React component written in TypeScript,
+      keyboard accessible and themed with the same tokens as this site.
+    </p>
+  </section>
+
+  <section class="container-page" aria-labelledby="tokens-heading">
+    <h2 id="tokens-heading" class="text-2xl font-semibold tracking-tight">Design token explorer</h2>
+    <p class="mt-2 max-w-2xl text-muted">
+      The color primitives from the <a class="text-accent underline underline-offset-4" href="/work/alpha-design-system/">Alpha Design System</a>,
+      exported from Figma Variables. Pick a step to get its CSS variable and live WCAG contrast against white and black.
+      Try the arrow keys.
+    </p>
+    <div class="mt-6"><TokenExplorer client:visible /></div>
+  </section>
+
+  <section class="container-page mt-16" aria-labelledby="contrast-heading">
+    <h2 id="contrast-heading" class="text-2xl font-semibold tracking-tight">WCAG contrast checker</h2>
+    <p class="mt-2 max-w-2xl text-muted">
+      The formula from WCAG 2.x, implemented from scratch. I use this check on every color pairing before it becomes a
+      semantic token.
+    </p>
+    <div class="mt-6"><ContrastChecker client:visible /></div>
+  </section>
+</BaseLayout>

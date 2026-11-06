@@ -1,0 +1,56 @@
+---
+const layers = [
+  {
+    name: 'Primitives',
+    desc: 'Raw values: color ramps, spacing scale, type scale, radii.',
+    sample: ['$teal-600', '$space-4', '$font-size-14'],
+  },
+  {
+    name: 'Semantic tokens',
+    desc: 'Roles, not values. Themes remap these.',
+    sample: ['$color-primary', '$color-surface', '$text-muted'],
+  },
+  {
+    name: 'Mixins & elements',
+    desc: 'Buttons, forms, tables, dropdowns, tooltips — built only from semantic tokens.',
+    sample: ['@include button()', '.form-field', '.table'],
+  },
+  {
+    name: 'Components',
+    desc: 'Date pickers, filters, upload, tabs, lightbox, pagination…',
+    sample: ['.date-picker', '.filter', '.tab-container'],
+  },
+  {
+    name: 'Brand themes & modules',
+    desc: '19 layouts/themes · 39 product modules.',
+    sample: ['layout_public', 'theme-brand-x', 'surveys/'],
+  },
+];
+---
+
+<figure class="not-prose my-10">
+  <ol class="flex flex-col gap-2">
+    {
+      layers.map((l, i) => (
+        <li
+          class="card grid gap-3 p-4 sm:grid-cols-[11rem_1fr_auto] sm:items-center"
+          style={`margin-inline-start:${i * 0.75}rem`}
+        >
+          <p class="font-semibold">
+            <span class="mr-2 font-mono text-xs text-accent">0{i + 1}</span>
+            {l.name}
+          </p>
+          <p class="text-sm text-muted">{l.desc}</p>
+          <ul class="flex flex-wrap gap-1.5">
+            {l.sample.map((s) => (
+              <li class="rounded bg-accent-soft px-1.5 py-0.5 font-mono text-[11px] text-accent">{s}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+  <figcaption class="mt-3 text-center text-sm text-muted">
+    Each layer only depends on the one above it. A brand theme is a remap of semantic tokens — not a fork.
+  </figcaption>
+</figure>

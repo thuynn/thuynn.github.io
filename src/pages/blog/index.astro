@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostItem from '../../components/PostItem.astro';
+import { getPosts } from '../../utils';
+
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+---
+
+<BaseLayout title="Blog" description="Notes on design systems, CSS debugging, UX and AI-assisted workflows.">
+  <section class="container-page pt-16 pb-6">
+    <p class="eyebrow">Blog</p>
+    <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Notes &amp; lessons</h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted">
+      Things I've learned building interfaces for 18 years — design systems, tricky CSS bugs, UX decisions and how I
+      use AI in my workflow. Some posts are in Vietnamese.
+    </p>
+    {
+      tags.length > 0 && (
+        <ul class="mt-6 flex flex-wrap gap-2">
+          {tags.map((t) => (
+            <li>
+              <a href={`/blog/tags/${t}/`} class="tag hover:bg-accent hover:text-accent-fg">
+                #{t}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+  <section class="container-page">
+    {posts.map((post) => <PostItem post={post} />)}
+  </section>
+</BaseLayout>

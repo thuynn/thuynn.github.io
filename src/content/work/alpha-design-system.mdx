@@ -1,0 +1,72 @@
+---
+title: 'Alpha — a Figma Variables design system, wired to code'
+summary: 'A token-based design system built in Figma: 119 variables, 23 text styles bound to tokens, and a live React explorer that uses the same values.'
+role: 'Design system design · Figma Variables · Front-end'
+period: 'UI/UX course project'
+context: 'Design system · Figma ↔ Code'
+tags: ['Figma Variables', 'Design Tokens', 'Typography', 'React']
+accent: '#7d2eff'
+order: 3
+featured: true
+stats:
+  - { value: '119', label: 'Figma variables' }
+  - { value: '23', label: 'text styles bound to tokens' }
+  - { value: '4', label: 'color ramps × 11 steps' }
+  - { value: '1', label: 'source of truth' }
+---
+
+import TokenExplorer from '../../components/lab/TokenExplorer';
+
+<Callout title="Project context">
+  Alpha started as the foundations of a UI/UX course project at MindX. I rebuilt it as a clean, reusable token
+  library in my own Figma workspace and connected it to code.
+</Callout>
+
+## Goal
+
+Most course projects stop at a pretty style guide. I wanted Alpha to behave like a real system: change one variable,
+and every text style, component and screen follows.
+
+## Foundations
+
+**Color — 81 variables.** Four primitive ramps (Primary violet, Red, Green, Yellow) with 11 steps each, neutrals,
+and opacity scales for overlays. Semantic aliases (e.g. `Semantic/Success/50 → Green/50`) sit on top so meaning is
+separated from value.
+
+**Spacing — 29 variables.** A spatial system from 0 to 256 that is also used for font sizes and line heights, so
+type and layout share one rhythm.
+
+**Typography — 9 variables + 23 text styles.** Display, Heading, Body, Label and Caption styles in Inter. Every
+style binds its family, weight, size, line height and letter spacing to variables — swap the typeface variable and
+the whole scale updates.
+
+<Callout title="Cleaning up while rebuilding">
+  The original file mixed naming conventions (`Color/Yellow/800` next to `Yellow/700`). I normalised the names and
+  scoped every variable (fills, text, gaps, radius…) so designers only see relevant tokens in each picker.
+</Callout>
+
+## Try it
+
+The explorer below uses the exact color values from the Figma variables. Choose a ramp and a step to get the CSS
+variable and its WCAG contrast on white and black — the check I run before promoting a color to a semantic role.
+
+<div class="not-prose my-8">
+  <TokenExplorer client:visible />
+</div>
+
+## Workflow
+
+1. **Audit** the source file and list every variable actually used by components and type.
+2. **Rebuild** collections (Color, Spacing, Typography) with explicit scopes and consistent names.
+3. **Bind** text styles to variables so typography is token-driven, not hard-coded.
+4. **Document** foundations on a dedicated page: swatches and a type specimen generated from the tokens.
+5. **Ship to code** — the same values power the React explorer on this page.
+
+I used AI-assisted tooling (Figma MCP inside Cursor) to read and recreate variables programmatically, then
+reviewed every value and binding by hand.
+
+## What I learned
+
+- Variables are only useful with **scopes** — otherwise every picker shows 100+ irrelevant options.
+- Binding typography to tokens is the step most systems skip, and the one that saves the most time later.
+- Keeping Figma and code in sync is easiest when both read from the **same list of values**.

@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../site';
+
+const timeline = [
+  {
+    period: '2014 — Present',
+    title: 'Senior UI Development & UX Specialist',
+    org: 'Spectos Asia',
+    points: [
+      'Lead owner of the company design system for 12 years: 97 design tokens, 33 components, 19 brand themes across 39 product modules.',
+      'Sole UX/UI and CSS specialist for a team of 9 developers and 3 QA engineers.',
+      'Migrating the platform UI to Angular 21, Tailwind CSS 4 and PrimeNG.',
+      'Delivered UI for a React Native app on iOS, Android and web.',
+    ],
+  },
+  {
+    period: '2007 — 2014',
+    title: 'Team Leader, UI Web Development',
+    org: 'eXo Platform',
+    points: [
+      'Led and mentored a UI team across open-source enterprise collaboration products.',
+      'Built the UI component guidelines and front-end standards for all eXo products.',
+    ],
+  },
+];
+
+const education = [
+  { title: 'Bachelor of Information Technology', org: 'Vietnam National University — Ho Chi Minh City' },
+  { title: 'UI/UX Design', org: 'MindX Technology School' },
+  { title: 'Leadership Certificate', org: 'CFVG — National Economics University' },
+  { title: 'Pragmatic Scrum', org: 'Agile training course' },
+];
+---
+
+<BaseLayout title="About" description="18+ years of UI/UX design and front-end engineering.">
+  <section class="container-page grid gap-12 pt-16 lg:grid-cols-[1fr_18rem]">
+    <div>
+      <p class="eyebrow">About</p>
+      <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Hi, I'm Thuy.</h1>
+      <div class="prose-page mt-6 text-lg">
+        <p>
+          I'm a UI/UX designer who started as a front-end developer — and never stopped writing code. That mix is my
+          superpower: I can sketch a flow in the morning, define the tokens after lunch and review the pull request
+          before the day ends.
+        </p>
+        <p>
+          I've spent most of my career on complex enterprise products — dashboards, surveys, ticketing, workflow
+          configuration — where the job is to make heavy business logic feel simple. I care about accessibility,
+          consistency and handoffs that developers don't have to redo.
+        </p>
+        <p>
+          These days I lean on AI tools (ChatGPT, Gemini, Claude, Cursor, Figma MCP) to explore ideas faster — while
+          keeping the verification, the taste and the details firmly human.
+        </p>
+      </div>
+    </div>
+    <aside class="card h-fit p-6 text-sm">
+      <h2 class="font-semibold">Quick facts</h2>
+      <dl class="mt-4 space-y-3">
+        <div><dt class="text-muted">Based in</dt><dd>Hanoi, Vietnam · open to remote</dd></div>
+        <div><dt class="text-muted">Experience</dt><dd>18+ years</dd></div>
+        <div><dt class="text-muted">Languages</dt><dd>Vietnamese, English (working)</dd></div>
+        <div><dt class="text-muted">Contact</dt><dd><a class="text-accent hover:underline" href={`mailto:${SITE.email}`}>{SITE.email}</a></dd></div>
+      </dl>
+      <a href={SITE.cv} class="btn-primary mt-6 w-full justify-center">Download CV</a>
+    </aside>
+  </section>
+
+  <section class="container-page mt-20" aria-labelledby="exp-heading">
+    <h2 id="exp-heading" class="text-2xl font-semibold tracking-tight">Experience</h2>
+    <ol class="mt-8 space-y-10 border-l border-line pl-6">
+      {
+        timeline.map((t) => (
+          <li class="relative">
+            <span class="absolute top-1.5 -left-[1.95rem] size-3 rounded-full border-2 border-bg bg-accent" aria-hidden="true" />
+            <p class="font-mono text-xs text-muted">{t.period}</p>
+            <h3 class="mt-1 text-lg font-semibold">
+              {t.title} <span class="font-normal text-muted">· {t.org}</span>
+            </h3>
+            <ul class="mt-3 list-disc space-y-1.5 pl-5 text-fg/85">
+              {t.points.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="container-page mt-20" aria-labelledby="edu-heading">
+    <h2 id="edu-heading" class="text-2xl font-semibold tracking-tight">Education &amp; training</h2>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+      {
+        education.map((e) => (
+          <li class="card p-5">
+            <p class="font-semibold">{e.title}</p>
+            <p class="mt-1 text-sm text-muted">{e.org}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

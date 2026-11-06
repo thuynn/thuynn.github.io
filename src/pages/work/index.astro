@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import { getWork } from '../../utils';
+
+const work = await getWork();
+---
+
+<BaseLayout title="Work" description="Case studies in UX research, interaction design, design systems and front-end.">
+  <section class="container-page pt-16 pb-8">
+    <p class="eyebrow">Work</p>
+    <h1 class="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Case studies</h1>
+    <p class="mt-4 max-w-2xl text-lg text-muted">
+      Production work from 12 years at Spectos, plus end-to-end UX projects from my UI/UX training — research,
+      flows, UI and the systems behind them.
+    </p>
+  </section>
+  <section class="container-page grid gap-6 md:grid-cols-2">
+    {work.map((entry, i) => <WorkCard entry={entry} priority={i < 2} />)}
+  </section>
+</BaseLayout>

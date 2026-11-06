@@ -1,0 +1,37 @@
+---
+title: 'Scan & Sign — proof of delivery in four taps'
+summary: 'A mobile app for postal workers: authenticate with a QR code, scan a parcel, then capture a signature or photo — or report why delivery failed.'
+role: 'UX flows · Wireframes · Mobile UI'
+period: '2025'
+context: 'Mobile app · Logistics'
+tags: ['Mobile', 'User Flow', 'Wireframes', 'UI Design']
+accent: '#1f2b38'
+order: 4
+featured: false
+draft: true
+---
+
+<Callout title="Work in progress">
+  Screens will be added after export from Figma.
+</Callout>
+
+## The problem
+
+Delivery staff need to confirm hundreds of deliveries a day, often outdoors, with one hand, in a hurry. Every extra
+tap or ambiguous state costs time and causes disputes about whether a parcel was delivered.
+
+## Flow
+
+1. **Authenticate** by scanning a personal QR code — no passwords on shared devices.
+2. **Dashboard** shows today's progress (delivered vs. not delivered) and one primary action: start a scan.
+3. **Scan the barcode** inside a high-contrast frame; a clear error appears if no shipment matches.
+4. **Package detail** shows tracking number, scan time and current location.
+5. **Confirm** with a digital signature or a photo of the signed document — or
+6. **Report a failed delivery** with quick reasons: can't find the address, no name on the doorbell, nobody at
+   home, or other.
+
+## Design decisions
+
+- One primary action per screen, sized for thumbs and gloves.
+- Success and failure paths are equally short — reporting a problem shouldn't feel like a punishment.
+- Every confirmation shows tracking number, time and address, so the record is self-explanatory.

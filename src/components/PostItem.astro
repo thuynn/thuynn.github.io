@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../utils';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, lang, tags } = post.data;
+---
+
+<article class="group relative grid gap-2 border-b border-line py-6 sm:grid-cols-[8rem_1fr] sm:gap-6">
+  <p class="font-mono text-xs text-muted sm:pt-1.5">
+    <time datetime={date.toISOString()}>{formatDate(date)}</time>
+  </p>
+  <div class="flex flex-col gap-2">
+    <h3 class="text-lg font-semibold tracking-tight group-hover:text-accent">
+      <a href={`/blog/${post.id}/`} class="after:absolute after:inset-0">{title}</a>
+    </h3>
+    <p class="text-muted">{description}</p>
+    <ul class="flex flex-wrap gap-2">
+      {lang === 'vi' && <li class="tag">Tiếng Việt</li>}
+      {tags.map((t) => <li class="font-mono text-xs text-muted">#{t}</li>)}
+    </ul>
+  </div>
+</article>

@@ -1,0 +1,17 @@
+---
+import { SITE } from '../site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-line">
+  <div class="container-page flex flex-col gap-6 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+    <p>© {year} {SITE.name}. Designed in Figma, built with Astro &amp; Tailwind.</p>
+    <ul class="flex flex-wrap gap-5">
+      <li><a class="hover:text-accent" href={`mailto:${SITE.email}`}>Email</a></li>
+      <li><a class="hover:text-accent" href={SITE.github} rel="me">GitHub</a></li>
+      <li><a class="hover:text-accent" href={SITE.cv}>CV (PDF)</a></li>
+      <li><a class="hover:text-accent" href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>

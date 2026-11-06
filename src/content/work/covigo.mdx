@@ -1,0 +1,110 @@
+---
+title: 'Covigo — home health tracking for COVID-19 patients'
+summary: 'A mobile app that helps people isolating at home log daily vitals, understand when a reading is dangerous and reach family or a doctor in one tap.'
+role: 'UX research, UX/UI design, branding'
+period: 'UI/UX course project'
+context: 'Mobile app · Healthcare'
+tags: ['UX Research', 'Mobile', 'Branding', 'UI Design']
+cover: '../../assets/work/covigo/slide-01.png'
+accent: '#135D9B'
+order: 2
+featured: true
+stats:
+  - { value: '2', label: 'personas & journey maps' }
+  - { value: '6', label: 'core user flows' }
+  - { value: '60+', label: 'mobile screens' }
+  - { value: '14', label: 'custom medical icons' }
+---
+
+import slide02 from '../../assets/work/covigo/slide-02.png';
+import slide03 from '../../assets/work/covigo/slide-03.png';
+import slide04 from '../../assets/work/covigo/slide-04.png';
+import slide05 from '../../assets/work/covigo/slide-05.png';
+import slide06 from '../../assets/work/covigo/slide-06.png';
+import slide07 from '../../assets/work/covigo/slide-07.png';
+import slide08 from '../../assets/work/covigo/slide-08.png';
+import slide09 from '../../assets/work/covigo/slide-09.png';
+import slide11 from '../../assets/work/covigo/slide-11.png';
+import slide12 from '../../assets/work/covigo/slide-12.png';
+import slide13 from '../../assets/work/covigo/slide-13.png';
+
+<Callout title="Project context">
+  End-to-end UX project from my UI/UX Design course at MindX. Research, personas, flows, branding and UI are my own
+  work. The artefacts are in Vietnamese because the target users are Vietnamese.
+</Callout>
+
+## The problem
+
+During the pandemic, home isolation became the norm. Hospitals were overloaded and could not follow every patient,
+while patients themselves had no simple way to know whether a reading was normal or dangerous.
+
+Most existing health apps were built for clinicians: dense, full of medical terms and unforgiving to a scared,
+first-time user. People ended up writing numbers in notebooks, searching symptoms on TikTok and hesitating to call
+a doctor because they "didn't want to bother anyone".
+
+**Goal:** a two-way monitoring tool. Patients log vitals in seconds; medical staff watch a real-time dashboard and
+step in early.
+
+<Figure src={slide04} alt="Problems and solution overview" caption="Problems observed during home isolation, and the two-way monitoring solution." />
+
+<Figure src={slide02} alt="Covigo introduction with home dashboard and login screens" caption="Covigo: fast, light and easy to use — vitals at a glance on the home screen." />
+
+## Process
+
+I followed a classic research → prototype → UI path, but kept each step small enough to test assumptions quickly.
+
+<Figure src={slide05} alt="Design process: research, prototype, UI design" caption="Research (interviews, concept, competitor audit) → user flows & wireframes → branding, typography and color." />
+
+## Understanding the users
+
+Interviews pointed to two very different people with the same core need: _"tell me if I'm okay, and what to do if
+I'm not"_.
+
+- **Linh, 19, student** — anxious, isolating alone, learns from Google and TikTok. Needs reassurance and clear
+  next steps, not data.
+- **Minh, 28, office worker** — recovering, data-oriented, already owns a smartwatch and an SpO2 meter. Wants trends
+  and a fast way to share them with his doctor.
+
+<Figure src={slide06} alt="User persona Linh" />
+<Figure src={slide08} alt="User persona Minh" caption="Two personas: emotional reassurance vs. data and trends." />
+
+## Mapping the journey
+
+The journey maps exposed the moments where people drop off: not knowing where to start, forgetting to log on day
+three, and panicking when a number looks wrong but nothing explains why.
+
+<Figure src={slide07} alt="User journey map for Linh" wide />
+<Figure src={slide09} alt="User journey map for Minh" caption="Each pain point becomes an opportunity and a concrete design solution." wide />
+
+**What came out of it:**
+
+| Pain point | Design decision |
+| --- | --- |
+| "I don't know where to start" | Illustrated onboarding, one task per screen |
+| Forgetting to log after a few days | Two friendly reminders a day, logging in 2 taps |
+| "Is 94% SpO2 bad?" | Color + icon status with a one-line explanation and a clear action |
+| Not knowing who to call | One-tap "Call family / doctor" that sends an automatic health report |
+| Manual typing for device owners | Smartwatch sync, manual input only as a fallback |
+
+## Flows
+
+Logging is the heart of the app, so the flow was designed to branch per vital — SpO2, temperature, heart rate,
+breathing and cough status — and converge on a single confirmation that reports to medical staff.
+
+<Figure src={slide11} alt="Covigo user flow" caption="Open app → home → log a vital (manual or device) → confirm → report to medical staff." />
+
+## Brand & visual language
+
+Trust and warmth had to coexist: a calm blue for reliability, an energetic orange for actions and encouragement.
+Mulish keeps numbers legible at a glance, and a custom outline icon set makes medical concepts friendly.
+
+<Figure src={slide03} alt="Covigo logo construction and app icon" />
+<Figure src={slide12} alt="Covigo style guide: Mulish typeface and color palette" />
+<Figure src={slide13} alt="Covigo icon set" caption="Logo grid, style guide (Mulish, #135D9B, #FF6B35) and 14 custom icons." />
+
+## What I learned
+
+- **Emotion is a requirement.** For anxious users, an explanation next to a number matters as much as the number.
+- **Design the "not okay" path first.** The alert-and-act flow drove more decisions than the happy path.
+- **Two personas, one system.** Progressive disclosure let the same screens serve Linh (reassurance) and Minh
+  (trends) without two separate products.

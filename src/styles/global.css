@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens.
+ * Primitive scale → semantic roles. Components only use semantic roles,
+ * so light/dark themes are a remap of a handful of variables.
+ */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+
+  --color-teal-50: #eef7f7;
+  --color-teal-100: #d5ecec;
+  --color-teal-200: #a9d6d7;
+  --color-teal-300: #74babc;
+  --color-teal-400: #46999c;
+  --color-teal-500: #2e8285;
+  --color-teal-600: #237378;
+  --color-teal-700: #1d5c60;
+  --color-teal-800: #194a4e;
+  --color-teal-900: #163d41;
+
+  --color-ink-50: #f5f7f8;
+  --color-ink-100: #e8ecef;
+  --color-ink-200: #d2d8dd;
+  --color-ink-300: #aab4bc;
+  --color-ink-400: #7d8992;
+  --color-ink-500: #646c73;
+  --color-ink-600: #4b545c;
+  --color-ink-700: #333c45;
+  --color-ink-800: #1f2b38;
+  --color-ink-900: #192d41;
+  --color-ink-950: #0e1a26;
+
+  --color-coral-500: #f2795a;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+}
+
+:root {
+  --bg: var(--color-ink-50);
+  --surface: #ffffff;
+  --fg: var(--color-ink-900);
+  --muted: var(--color-ink-500);
+  --line: var(--color-ink-200);
+  --accent: var(--color-teal-600);
+  --accent-fg: #ffffff;
+  --accent-soft: var(--color-teal-50);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: var(--color-ink-950);
+  --surface: #13212f;
+  --fg: var(--color-ink-50);
+  --muted: var(--color-ink-300);
+  --line: #24384b;
+  --accent: var(--color-teal-300);
+  --accent-fg: var(--color-ink-950);
+  --accent-soft: #15353a;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    @apply bg-bg text-fg antialiased;
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-fg;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs font-medium tracking-widest text-accent uppercase;
+  }
+
+  .btn,
+  .btn-primary,
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors;
+  }
+  .btn-primary {
+    @apply bg-accent text-accent-fg hover:opacity-90;
+  }
+  .btn-ghost {
+    @apply border border-line text-fg hover:border-accent hover:text-accent;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface;
+  }
+
+  .tag {
+    @apply inline-flex items-center rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent;
+  }
+
+  .prose-page {
+    @apply prose max-w-none prose-slate dark:prose-invert;
+    @apply prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-fg;
+    @apply prose-p:text-fg/85 prose-li:text-fg/85 prose-strong:text-fg;
+    @apply prose-a:text-accent prose-a:underline-offset-4;
+    @apply prose-code:rounded prose-code:bg-accent-soft prose-code:px-1 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none;
+    @apply prose-pre:border prose-pre:border-line prose-pre:bg-ink-950;
+    @apply prose-img:rounded-xl prose-img:border prose-img:border-line;
+  }
+}

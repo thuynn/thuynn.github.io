@@ -1,0 +1,58 @@
+---
+title: 'Figma Variables: những điều mình ước đã biết sớm hơn'
+description: 'Ghi chú từ lúc dựng lại bộ token Alpha — scopes, đặt tên, và vì sao nên bind typography vào variable.'
+date: 2026-11-01
+lang: vi
+tags: ['figma', 'design-tokens', 'ghi-chu']
+---
+
+Làm CSS và design system trong code đã lâu, nhưng phải đến khóa UI/UX mình mới làm việc nghiêm túc với Figma
+Variables. Lúc dựng lại bộ token [Alpha](/work/alpha-design-system/), mình rút ra vài điều dưới đây.
+
+## 1. Luôn đặt scope cho variable
+
+Mặc định, một color variable sẽ hiện ở **mọi** ô chọn màu: fill, stroke, text, effect… Với 80 màu, picker trở thành
+một danh sách dài vô tận.
+
+Hãy đặt scope ngay khi tạo:
+
+- Màu nền → `Frame fill`, `Shape fill`
+- Màu chữ → `Text fill`
+- Spacing → `Gap`, `Width & height`
+- Radius → `Corner radius`
+
+Người dùng file sẽ chỉ thấy đúng token cần dùng ở đúng chỗ.
+
+## 2. Thống nhất cách đặt tên ngay từ đầu
+
+File gốc của mình có cả `Color/Yellow/800` lẫn `Yellow/700`. Nhìn thì vô hại, nhưng khi export sang code sẽ thành
+hai nhóm khác nhau. Quy ước mình dùng:
+
+```text
+Nhóm/Tên/Bậc   →   Primary/600, Red/50, Semantic/Success/50
+```
+
+## 3. Tách primitive và semantic
+
+`Green/50` là giá trị. `Semantic/Success/50` là ý nghĩa — và nó **alias** về `Green/50`. Khi đổi theme, chỉ cần đổi
+alias, không phải sửa từng component.
+
+## 4. Bind typography vào variable
+
+Đây là bước nhiều người bỏ qua nhất. Text style có thể bind font family, weight, size, line height và letter
+spacing vào variable. Làm xong, chỉ cần đổi một variable `Font/Family` là cả 23 text style đổi theo.
+
+<Callout title="Mẹo">
+  Dùng chung thang spacing cho cả font size và line height (ví dụ 12, 16, 20, 24…) giúp chữ và layout có chung
+  một nhịp.
+</Callout>
+
+## 5. Giữ một nguồn sự thật cho cả design và code
+
+Bảng màu trong [Lab](/lab/) của trang này dùng đúng các giá trị lấy từ Figma. Khi design và code cùng đọc một danh
+sách giá trị, việc "lệch màu giữa Figma và web" gần như biến mất.
+
+---
+
+Bài sau mình sẽ viết về cách dùng AI (Figma MCP trong Cursor) để đọc và dựng lại variables tự động — và những chỗ
+vẫn phải kiểm tra bằng tay.

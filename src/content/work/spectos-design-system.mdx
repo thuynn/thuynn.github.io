@@ -1,0 +1,88 @@
+---
+title: 'A 12-year design system for an enterprise SaaS platform'
+summary: 'How I built, scaled and now migrate the design system behind a customer-experience platform: 97 tokens, 33 components and 19 brand themes powering 39 product modules.'
+role: 'Design system owner · UX/UI · CSS architecture'
+period: '2014 — Present'
+context: 'Spectos · Enterprise SaaS'
+tags: ['Design Systems', 'SCSS', 'Theming', 'Angular', 'Tailwind']
+accent: '#237378'
+order: 1
+featured: true
+stats:
+  - { value: '97', label: 'design tokens' }
+  - { value: '33', label: 'components & elements' }
+  - { value: '19', label: 'brand / layout themes' }
+  - { value: '39', label: 'product modules' }
+---
+
+import TokenLayers from '../../components/mdx/TokenLayers.astro';
+
+<Callout title="A note on confidentiality">
+  The platform is proprietary, so this case study describes architecture and decisions rather than showing product
+  screens. Numbers come straight from the codebase.
+</Callout>
+
+## Context
+
+Spectos builds a SaaS platform for customer experience and quality management: real-time dashboards
+("cockpits"), surveys, ticketing, tracking, panels, campaigns and data digitalization. Many clients get their own
+branded portal.
+
+I joined in 2014 and have been the **only UX/UI and CSS specialist** for a team that is now **9 developers and 3 QA
+engineers**. That ratio shaped everything: the system had to let developers build consistent UI _without_ me in every
+review.
+
+## The problem
+
+- Dozens of modules, each with its own CSS — the same button existed in many slightly different versions.
+- Clients needed branded portals, and every new brand meant copy-pasting and editing stylesheets.
+- Dashboards with Highcharts had to look right at every resolution and in print.
+
+## The system
+
+I organised the styles into five layers, each depending only on the one above.
+
+<TokenLayers />
+
+**Tokens.** 97 SCSS variables for color, typography, spacing and radius, plus 13 mixins for repeated patterns
+(responsive breakpoints, truncation, focus rings).
+
+**Elements and components.** 12 base elements (buttons, forms, dropdowns, tables, tooltips, switches…) and 21
+components (date picker, filter, file upload, tabs, lightbox, pagination, comments…).
+
+**Theming.** 19 layouts and brand themes are a remap of semantic tokens. Adding a client brand went from editing
+files across modules to changing a handful of variables.
+
+**Icons.** A 150-glyph icon font built from SVG sources, so icons inherit color and size from text.
+
+## Key moments
+
+### Re-architecting the global stylesheet (2023)
+
+Years of growth had turned the global SCSS file into a monolith. I split it into tokens, mixins, elements and
+components — about **6,500 lines** reorganised — without visual regressions across 39 modules. The rule I followed:
+move first, refactor later, and diff screenshots of every module between steps.
+
+### From runtime CSS to static CSS (2025–2026)
+
+Part of the ticketing platform generated CSS on the fly. I migrated it to precompiled static CSS, which removed a
+runtime step, made styles cacheable and made bugs reproducible.
+
+### Migrating to Angular 21 + Tailwind CSS 4 (2026)
+
+We are rebuilding the existing UI on a modern stack — Angular 21, Tailwind CSS 4 and PrimeNG. The legacy SCSS tokens
+map into the Tailwind theme, so the new app stays visually consistent with the old one while modules move over. We
+piloted with the app shell (top bar, sidebar, footer) and the Tickets module.
+
+## Working as a team of one
+
+<Callout title="How I keep 12 people consistent">
+  Tokens first, components second, reviews third. If a developer needs a new pattern, it goes into the system —
+  not into the module. And I review UI in the browser at real breakpoints, not just in the diff.
+</Callout>
+
+## What I learned
+
+- **A design system is a product.** It needs owners, a changelog and a migration plan — not just a style guide.
+- **Semantic tokens pay for themselves** the first time a client asks for their own brand.
+- **Boring is good.** The most valuable refactors were the ones nobody noticed visually.

@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Figure from '../../components/mdx/Figure.astro';
+import Callout from '../../components/mdx/Callout.astro';
+import { getWork } from '../../utils';
+
+export async function getStaticPaths() {
+  const work = await getWork();
+  return work.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: work[(i + 1) % work.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const { title, summary, role, period, context, tags, cover, stats } = entry.data;
+---
+
+<BaseLayout title={title} description={summary}>
+  <article>
+    <header class="container-page pt-16 pb-10">
+      <a href="/work/" class="text-sm text-muted hover:text-accent">← All work</a>
+      <p class="eyebrow mt-8">{context}</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-5xl">{title}</h1>
+      <p class="mt-5 max-w-2xl text-lg text-muted text-pretty">{summary}</p>
+
+      <dl class="mt-10 grid gap-6 border-y border-line py-6 text-sm sm:grid-cols-3">
+        <div>
+          <dt class="text-muted">Role</dt>
+          <dd class="mt-1 font-medium">{role}</dd>
+        </div>
+        <div>
+          <dt class="text-muted">Period</dt>
+          <dd class="mt-1 font-medium">{period}</dd>
+        </div>
+        <div>
+          <dt class="text-muted">Focus</dt>
+          <dd class="mt-1 font-medium">{tags.join(' · ')}</dd>
+        </div>
+      </dl>
+
+      {
+        stats.length > 0 && (
+          <dl class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {stats.map((s) => (
+              <div class="card p-4">
+                <dd class="text-2xl font-semibold tracking-tight text-accent">{s.value}</dd>
+                <dt class="mt-1 text-xs text-muted">{s.label}</dt>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </header>
+
+    {
+      cover && (
+        <div class="container-page">
+          <Image src={cover} alt={`${title} cover`} widths={[800, 1200, 1600]} sizes="(min-width: 1024px) 1024px, 100vw" loading="eager" class="w-full rounded-2xl border border-line" />
+        </div>
+      )
+    }
+
+    <div class="container-page mt-12">
+      <div class="prose-page mx-auto max-w-3xl">
+        <Content components={{ Figure, Callout }} />
+      </div>
+    </div>
+  </article>
+
+  {
+    next.id !== entry.id && (
+      <aside class="container-page mt-20">
+        <a href={`/work/${next.id}/`} class="card group flex items-center justify-between gap-6 p-6 hover:border-accent">
+          <div>
+            <p class="eyebrow">Next case study</p>
+            <p class="mt-2 text-xl font-semibold tracking-tight group-hover:text-accent">{next.data.title}</p>
+          </div>
+          <span class="text-2xl text-accent" aria-hidden="true">→</span>
+        </a>
+      </aside>
+    )
+  }
+</BaseLayout>

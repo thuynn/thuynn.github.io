@@ -1,0 +1,64 @@
+---
+title: 'A brand theme should be a token remap, not a fork'
+description: 'What 19 client themes on one SaaS platform taught me about semantic tokens — and the small rules that keep them from rotting.'
+date: 2026-10-30
+lang: en
+tags: ['design-systems', 'css', 'theming']
+---
+
+When a B2B product starts selling branded portals, the first client theme is usually a copy of the main stylesheet
+with new colors. The second one is a copy of the first. By the fifth, nobody knows which file is the source of truth.
+
+I have maintained 19 brand and layout themes on one platform. Here is what made that manageable.
+
+## 1. Separate values from roles
+
+A primitive token describes a value. A semantic token describes a job.
+
+```scss
+// primitives — never used directly in components
+$teal-600: #237378;
+$ink-900: #192d41;
+
+// semantic — the only thing components know about
+$color-primary: $teal-600;
+$color-text: $ink-900;
+$color-surface: #fff;
+```
+
+A theme only overrides the **semantic** layer. If a component references `$teal-600` directly, it cannot be themed
+— that is a bug, even if it looks right today.
+
+## 2. Name tokens after intent, not appearance
+
+`$color-blue-button` breaks the moment a client's brand is green. `$color-primary` and `$color-action-hover`
+survive any palette.
+
+## 3. Check contrast when you remap
+
+Client brand colors are chosen for logos, not for text on buttons. Every time a theme maps a brand color to a role,
+check it against the surfaces it will sit on. I built a small [contrast checker](/lab/) for exactly this.
+
+<Callout title="Rule of thumb">
+  If the brand color fails 4.5:1 against white, use it for accents and borders, and pick a darker step from the
+  same hue for text and primary buttons.
+</Callout>
+
+## 4. Keep the theme file boring
+
+A good theme file is a list of variable assignments and nothing else — no selectors, no overrides, no
+`!important`. The moment a theme needs a selector, the system is missing a token.
+
+## 5. Make migration possible
+
+Tokens outlive frameworks. We are now moving the UI to Angular 21 and Tailwind CSS 4, and because the themes are
+just token maps, they translate almost one-to-one into a Tailwind `@theme` block:
+
+```css
+@theme {
+  --color-primary: var(--brand-primary, #237378);
+  --color-surface: var(--brand-surface, #fff);
+}
+```
+
+Same roles, new syntax. The themes did not need to be redesigned — only re-expressed.
