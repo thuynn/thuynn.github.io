@@ -1,38 +1,36 @@
 # thuynn.github.io
 
-Portfolio, case studies and blog of Thuy Nguyen — built with Astro, Tailwind CSS 4, MDX and React.
+Portfolio, case studies, blog and UI lab of **Thuy Nguyen** — Senior UI/UX Designer & UX Engineer.
 
-## Develop
+Live: https://thuynn.github.io
+
+| Section | What it is |
+| --- | --- |
+| `/work/` | Case studies (design systems, mobile apps, course projects) |
+| `/blog/` | Notes and lessons learned — English and Vietnamese |
+| `/lab/` | Small interactive tools: token explorer, WCAG contrast checker |
+| `/about/` | Experience, education, contact |
+
+## Stack
+
+Astro 7 · TypeScript · Tailwind CSS 4 · MDX · React 19 (interactive islands only) · GitHub Pages.
+
+## Quick start
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # output in dist/
+npm run dev       # http://localhost:4321
+npm run build     # static output in dist/
+npm run preview   # serve dist/ locally
 ```
 
-## Write a blog post
+Requires the Node version in `package.json` → `engines`.
 
-Create `src/content/blog/my-post.mdx`:
+## Docs
 
-```mdx
----
-title: 'Post title'
-description: 'One-sentence summary.'
-date: 2026-11-02
-lang: en        # or vi
-tags: ['css']
-draft: false
----
+- [docs/GUIDE.md](docs/GUIDE.md) — project structure, design tokens, writing posts and case studies, deploy (Vietnamese)
+- [docs/PLAN.md](docs/PLAN.md) — roadmap and content backlog (Vietnamese)
 
-Text here. Use <Callout title="Tip">…</Callout> and <Figure src={img} alt="…" caption="…" />.
-```
+## License
 
-## Add a case study
-
-Create `src/content/work/<slug>.mdx` (see existing files for the fields), put images in
-`src/assets/work/<slug>/` and import them at the top of the MDX file.
-
-## Deploy
-
-Pushing to `main` deploys to GitHub Pages via `.github/workflows/deploy.yml`
-(repo Settings → Pages → Source: **GitHub Actions**).
+Code: MIT. Written content, images and case studies: © Thuy Nguyen, all rights reserved.
