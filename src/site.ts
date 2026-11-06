@@ -1,8 +1,8 @@
 export const SITE = {
   name: 'Thuy Nguyen',
-  title: 'Thuy Nguyen — UI/UX Designer & UX Engineer',
+  title: 'Thuy Nguyen — Strategic Product-minded Designer',
   description:
-    'Senior UI/UX designer and UX engineer with 18+ years designing and building enterprise web and mobile products. Design systems, interaction design and front-end craft.',
+    'I connect user needs, product goals, design and technology to turn complex problems into thoughtful, practical product experiences.',
   email: 'ngocthuy.mv@gmail.com',
   github: 'https://github.com/thuynn',
   cv: '/Nguyen_Ngoc_Thuy_CV.pdf',

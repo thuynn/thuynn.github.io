@@ -1,0 +1,68 @@
+---
+const pillars = [
+  {
+    id: 'problem',
+    role: 'Problem solver',
+    question: 'Where is the real problem?',
+    proof:
+      'People isolating at home could not tell a dangerous reading from a normal one. The product had to answer that before anything else.',
+  },
+  {
+    id: 'product',
+    role: 'Product thinker',
+    question: 'What should the product solve first?',
+    proof:
+      'Before more screens, thirty-nine modules needed one shared system a small team could keep consistent.',
+  },
+  {
+    id: 'design',
+    role: 'Creative designer',
+    question: 'How do we make it clear to use?',
+    proof: 'A frightened first-time user needs the reading, its meaning, and the next step on one calm screen.',
+  },
+  {
+    id: 'technology',
+    role: 'Design × technology',
+    question: 'How does it become a real product?',
+    proof:
+      'Tokens, components, and code stay aligned — in a course system, and in a design system that has shipped for twelve years.',
+  },
+];
+---
+
+<section id="questions" class="container-page reveal scroll-mt-24 py-16" aria-labelledby="questions-heading">
+  <p class="eyebrow">What I bring</p>
+  <h2 id="questions-heading" class="mt-2 max-w-2xl text-3xl font-semibold tracking-tight">Four questions I keep asking</h2>
+  <p class="mt-3 max-w-xl text-muted">Choose one lens — or read them all.</p>
+  <div class="mt-8 grid gap-4 sm:grid-cols-2" role="group" aria-label="Four ways of looking at the work">
+    {
+      pillars.map((pillar) => (
+        <button type="button" class="card h-full w-full p-5 text-left hover:border-accent" data-pillar={pillar.id} aria-pressed="false">
+          <span class="flex items-center gap-2">
+            {pillar.id === 'problem' && <span class="size-2 rounded-full bg-sage" aria-hidden="true" />}
+            <span class="eyebrow">{pillar.role}</span>
+          </span>
+          <span class="mt-3 block text-lg font-semibold tracking-tight">{pillar.question}</span>
+          <span class="mt-2 block text-sm text-pretty text-muted">{pillar.proof}</span>
+        </button>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  const story = document.getElementById('story');
+  if (story) {
+    const buttons = story.querySelectorAll<HTMLButtonElement>('[data-pillar]');
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.pillar ?? '';
+        const next = story.dataset.focus === id ? '' : id;
+        story.dataset.focus = next;
+        buttons.forEach((item) => {
+          item.setAttribute('aria-pressed', item === button && next !== '' ? 'true' : 'false');
+        });
+      });
+    });
+  }
+</script>

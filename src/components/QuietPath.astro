@@ -1,0 +1,139 @@
+---
+const steps = ['hero', 'questions', 'chapters', 'approach', 'close'];
+---
+
+<div class="quiet-rail" data-step="hero" aria-hidden="true">
+  <span class="quiet-rail-track"><span class="quiet-rail-fill"></span></span>
+  <ol>
+    {
+      steps.map((id, index) => (
+        <li>
+          <span class:list={['quiet-rail-dot', index === 0 && 'is-here']} data-rail={id} />
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<script>
+  const rail = document.querySelector<HTMLElement>('.quiet-rail');
+  if (rail) {
+    const order = ['hero', 'questions', 'chapters', 'approach', 'close'];
+    const dots = rail.querySelectorAll<HTMLElement>('[data-rail]');
+    const sections = order
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section instanceof HTMLElement);
+
+    const setCurrent = (id: string) => {
+      rail.dataset.step = id;
+      dots.forEach((dot) => dot.classList.toggle('is-here', dot.dataset.rail === id));
+      rail.classList.toggle('is-complete', id === 'close');
+    };
+
+    if (sections.length > 0) {
+      let frame = 0;
+      const update = () => {
+        const marker = window.innerHeight * 0.46;
+        let current = sections[0].id;
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= marker) current = section.id;
+        }
+        setCurrent(current);
+      };
+      const onScroll = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          update();
+        });
+      };
+      update();
+      document.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    }
+  }
+</script>
+
+<style>
+  .quiet-rail {
+    display: none;
+    pointer-events: none;
+  }
+
+  @media (min-width: 1280px) {
+    .quiet-rail {
+      position: fixed;
+      top: 50%;
+      left: 1.5rem;
+      z-index: 30;
+      display: block;
+      width: 1rem;
+      height: 11.5rem;
+      transform: translateY(-50%);
+    }
+
+    .quiet-rail-track {
+      position: absolute;
+      top: 0.35rem;
+      bottom: 0.35rem;
+      left: 50%;
+      width: 1px;
+      background: var(--line);
+      transform: translateX(-50%);
+    }
+
+    .quiet-rail-fill {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      transform: scaleY(var(--rail, 0.08));
+      transform-origin: top;
+      transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .quiet-rail[data-step='hero'] {
+      --rail: 0.08;
+    }
+    .quiet-rail[data-step='questions'] {
+      --rail: 0.32;
+    }
+    .quiet-rail[data-step='chapters'] {
+      --rail: 0.55;
+    }
+    .quiet-rail[data-step='approach'] {
+      --rail: 0.78;
+    }
+    .quiet-rail[data-step='close'],
+    .quiet-rail.is-complete {
+      --rail: 1;
+    }
+
+    .quiet-rail ol {
+      position: relative;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .quiet-rail-dot {
+      display: block;
+      width: 0.45rem;
+      height: 0.45rem;
+      margin-inline: auto;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      background: var(--bg);
+      transition: background-color 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .quiet-rail-dot.is-here,
+    .quiet-rail.is-complete .quiet-rail-dot {
+      background: var(--accent);
+    }
+  }
+</style>
